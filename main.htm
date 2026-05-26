@@ -1,0 +1,243 @@
+<html>
+<head>
+<title>==== 7 號 試 作 机 ====</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+
+<meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.18design.com/7site">
+<meta property="og:title" content="=== 7 號試作机 ===">
+<meta property="og:description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta property="og:image" content="http://www.18design.com/7site/images/og_share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<style type="text/css">
+<!--
+.s1 {  font-size: 9pt}
+.s2 {  font-size: 7pt}
+-->
+a:link{color:ffffff;text-decoration:underline}
+a:active{color:ffffff;text-decoration:underline}
+a:visited{color:ffffff;text-decoration:underline}
+a:hover{color:3399ff;text-decoration:none}
+.shakeimage{position:relative}
+</style>
+
+<script language=javascript>
+<!--
+
+	if (document.images) {
+	s1on = new Image();
+	s1on.src = "images/v02_o.gif";
+	s1off = new Image();
+	s1off.src = "images/v02_u.gif";
+	
+	s2on = new Image();
+	s2on.src = "images/v04_o.gif";
+	s2off = new Image();
+	s2off.src = "images/v04_u.gif";
+	
+	s3on = new Image();
+	s3on.src = "images/v07_o.gif";
+	s3off = new Image();
+	s3off.src = "images/v07_u.gif";
+	
+	s4on = new Image();
+	s4on.src = "images/v08_o.gif";
+	s4off = new Image();
+	s4off.src = "images/v08_u.gif";
+	
+	s5on = new Image();
+	s5on.src = "images/v09_o.gif";
+	s5off = new Image();
+	s5off.src = "images/v09_u.gif";
+	
+	s6on = new Image();
+	s6on.src = "images/v11_o.gif";
+	s6off = new Image();
+	s6off.src = "images/v11_u.gif";
+	
+	s7on = new Image();
+	s7on.src = "images/v13_o.gif";
+	s7off = new Image();
+	s7off.src = "images/v13_u.gif";	
+}
+
+	function img_act(imgName) {
+	if (document.images) {
+	imgOn = eval(imgName + "on.src");
+	document [imgName].src = imgOn;
+	}
+     }
+
+	function img_inact(imgName) {
+	if (document.images) {
+	imgOff = eval(imgName + "off.src");
+	document [imgName].src = imgOff;
+	}
+     }
+	 
+//-->
+</script>
+
+<script language="JavaScript1.2">
+
+/*
+Shake image script (onMouseover)- 
+?Dynamic Drive (www.dynamicdrive.com)
+For full source code, usage terms, and 100's more DHTML scripts, visit http://dynamicdrive.com
+*/
+
+//configure shake degree (where larger # equals greater shake)
+var rector=3
+
+///////DONE EDITTING///////////
+var stopit=0 
+var a=1
+
+function init(which){
+stopit=0
+shake=which
+shake.style.left=0
+shake.style.top=0
+}
+
+function rattleimage(){
+if ((!document.all&&!document.getElementById)||stopit==1)
+return
+if (a==1){
+shake.style.top=parseInt(shake.style.top)+rector
+}
+else if (a==2){
+shake.style.left=parseInt(shake.style.left)+rector
+}
+else if (a==3){
+shake.style.top=parseInt(shake.style.top)-rector
+}
+else{
+shake.style.left=parseInt(shake.style.left)-rector
+}
+if (a<4)
+a++
+else
+a=1
+setTimeout("rattleimage()",50)
+}
+
+function stoprattle(which){
+stopit=1
+which.style.left=0
+which.style.top=0
+}
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V6LN8N72EP');
+</script>
+
+<script type="text/javascript">
+function addBookmark(title, url) {
+
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        url: url
+      }).catch(function(error) {
+        console.log('分享取消或失敗', error);
+      });
+    } else {
+      alert('==== 7 號 試 作 机 ==== 提示：請使用手機瀏覽器內建的功能，「加入書籤」或「加到主畫面」即可收藏經典7號試作机！');
+    }
+  } else {
+    var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    
+    if (isMac) {
+      alert('==== 7 號 試 作 机 ==== 提示：\n請按下【 Cmd + D 】即可收藏經典7號試作机！');
+    } else {
+      alert('==== 7 號 試 作 机 ==== 提示：\n請按下【 Ctrl + D 】即可收藏經典7號試作机！');
+    }
+  }
+  return false;
+}
+</script>
+
+
+</head>
+
+<style>
+  .orientation-warning {
+    display: none;
+  }
+
+  @media screen and (orientation: portrait) {
+    .orientation-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.90); 
+      z-index: 99999;
+      color: #FFFFFF;
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .orientation-warning img {
+      max-width: 200px; 
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .orientation-warning p {
+      font-size: 35px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="orientation-warning">
+  <img src="images/intro_mobile.gif" alt="Please rotate your device">
+  <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
+</div>
+
+<body bgcolor="#003399" background="images/bg_v.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"  link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF">
+<p><img src="images/home01.gif" width="285" height="15"> <img src="images/map_g.gif" width="141" height="19"></p>
+<p>&nbsp;</p>
+<table width="331" border="0" cellspacing="0" cellpadding="0" align="center" height="284">
+  <tr valign="top"> 
+    <td height="285"><img src="images/v01.gif" width="68" height="90"><a href="about/about7.htm" onmouseout="img_inact('s1')" onmouseover="img_act('s1')"><img name=s1 src="images/v02_u.gif" width="84" height="90" border="0" alt="網站製作人" title="網站製作人"></a><img src="images/v03.gif" width="127" height="90"><a href="design/des.htm" onmouseout="img_inact('s2')" onmouseover="img_act('s2')"><img name=s2 border="0" src="images/v04_u.gif" width="90" height="90" alt="設計檔案" title="設計檔案"></a><img src="images/v05.gif" width="30" height="90"><br>
+      <img src="images/v06.gif" width="399" height="10"><br>
+      <a href="comic/comic.htm" onmouseout="img_inact('s3')" onmouseover="img_act('s3')"><img name=s3 border="0" src="images/v07_u.gif" width="88" height="114" alt="繪畫作品" title="繪畫作品"></a><a href="inside.htm" onmouseout="img_inact('s4')" onmouseover="img_act('s4')"><img name=s4 border="0" src="images/v08_u.gif" width="238" height="114" alt="登入內部" title="登入內部"></a><a href="link/link.htm" onmouseout="img_inact('s5')" onmouseover="img_act('s5')"><img name=s5 border="0" src="images/v09_u.gif" width="73" height="114" alt="酷站走私" title="酷站走私"></a><br>
+      <img src="images/v10.gif" width="88" height="98"><a href="game/game.htm" onmouseout="img_inact('s6')" onmouseover="img_act('s6')"><img name=s6 border="0" src="images/v11_u.gif" width="69" height="98" alt="七號樂園" title="七號樂園"></a><img src="images/v12.gif" width="88" height="98"><a href="guestbook.htm" target="_blank" onmouseout="img_inact('s7')" onmouseover="img_act('s7')"><img name=s7 border="0" src="images/v13_u.gif" width="81" height="98" alt="訪客留言" title="訪客留言"></a><img src="images/v14.gif" width="73" height="98"></td>
+  </tr>
+</table>
+<p align="center" class="s1"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif"><a href="inside.htm">Inside</a> │ <a href="about/about7.htm">About</a> │ <a href="design/des.htm">Design</a> │ <a href="comic/comic.htm">Comic</a> │ <a href="game/game.htm">Game</a> │ <a href="link/link.htm">Link</a> │ <a href="guestbook.htm" target="_blank">Guestbook</a></font></p>
+<p align="center" class="s1"><a href="#" onclick="return addBookmark('=== 7 號試作机 ===', 'http://www.18design.com/7site');"><img border="0" src="images/bmark.gif" width="87" height="22" class="shakeimage" onMouseover="init(this);rattleimage()" onMouseout="stoprattle(this)" alt="加入我的最愛"></A></p>
+<p align="center" class="s1"><font color="#3399FF" face="Arial, Helvetica, sans-serif" class="s2">Best 
+  view with 1024 X 768 resolution and IE 5.0 above<br>
+  Last Updated: 2002/04/19/inside/hot news</font></p>
+<p align="center" class="s1">&nbsp;</p>
+</body>
+</html>

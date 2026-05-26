@@ -1,0 +1,171 @@
+<html>
+<head>
+<title>=== 7 號試作机 ===</title>
+<meta charset="UTF-8">
+
+<meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.18design.com/7site">
+<meta property="og:title" content="=== 7 號試作机 ===">
+<meta property="og:description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta property="og:image" content="http://www.18design.com/7site/images/og_share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style type="text/css">
+
+  .pixel-counter {
+    background-color: transparent; 
+    color: #80D0FF;               
+    font-family: 'Courier New', Courier, monospace; 
+    font-size: 12px;              
+    font-weight: bold;
+    letter-spacing: 1px;          
+    display: inline-block;
+    margin-left: -14px; 
+  }
+</style>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V6LN8N72EP');
+</script>
+
+</head>
+
+<style>
+  .orientation-warning {
+    display: none;
+  }
+
+  @media screen and (orientation: portrait) {
+    .orientation-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.90); 
+      z-index: 99999;
+      color: #FFFFFF;
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .orientation-warning img {
+      max-width: 200px; 
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .orientation-warning p {
+      font-size: 35px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="orientation-warning">
+  <img src="images/intro_mobile.gif" alt="Please rotate your device">
+  <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
+</div>
+
+<body bgcolor="#DBDBDB" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="620" border="0" cellpadding="0" cellspacing="0" height="554">
+  <tr>
+    <td height="524">
+      <img src="images/02_3dpack.jpg" width="463" height="457" alt="||||||||| 2002--七號机新裝置改造進行中..."><img src="images/02_3dpack_07.gif" width="156" height="457">
+      
+      <table width="583" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td width="24"><img src="images/02_3dpack_01.gif" width="24" height="99"></td>
+          <td width="188"><img src="images/02_3dpack_02.gif" width="188" height="99" usemap="#Map" border="0"></td>
+          <td width="225"><img src="images/02_3dpack_03.gif" width="251" height="99" usemap="#Map2" border="0"></td>
+          <td rowspan="2" width="146">
+            <div align="center">
+              <object width="130" height="130">
+                <param name="movie" value="images/02_3dpack.swf">
+                <param name="quality" value="high">
+                <param name="menu" value="false">
+                <param name="wmode" value="transparent">
+                <embed src="images/02_3dpack.swf" quality="high" menu="false" wmode="transparent" type="application/x-shockwave-flash" width="130" height="130">
+                </embed> 
+              </object>
+            </div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="24"><img src="images/02_3dpack_04.gif" width="24" height="37"></td>
+          
+          <td width="188" background="images/02_3dpack_05.gif" valign="middle">
+            <div style="padding-left: 8px; display: flex; align-items: center; height: 37px; line-height: 37px;">
+              <font size="2" color="#FFFFFF" style="font-family: sans-serif; margin-right: 3px;">--</font>
+              <div class="pixel-counter" id="final_stable_counter">00000000</div>
+            </div>
+
+            <script>
+              (function() {
+             
+                const url = 'https://api.counterapi.dev/v1/18design_7site/visits/up';
+
+                fetch(url)
+                  .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.json();
+                  })
+                  .then(data => {
+                    let total = data.count || 15;
+               
+                    document.getElementById('final_stable_counter').innerText = String(total).padStart(8, '0');
+                  })
+                  .catch(() => {
+                  
+                    try {
+                      let localCount = localStorage.getItem('7site_shared_backup') || 00;
+                      localCount = parseInt(localCount) + 1;
+                      localStorage.setItem('7site_shared_backup', localCount);
+                      document.getElementById('final_stable_counter').innerText = String(localCount).padStart(8, '0');
+                    } catch(e) {}
+                  });
+              })();
+            </script>
+          </td>
+          
+          <td width="225"><img src="images/02_3dpack_06.gif" width="251" height="37"></td>
+        </tr>
+      </table>
+	  <table width="" border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <td align="center"><a href="http://tw.yahoo.com/picks/2002/" target="_blank"><img src="images/yahoo_awd1.gif" border="0" alt="Yahoo!奇摩2002年好站票選活動"></a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br>
+<map name="Map"> 
+  <area shape="rect" coords="124,82,174,97" href="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank" alt="Download Flash Player" title="Download Flash Player">
+</map>
+<map name="Map2"> 
+  <area shape="rect" coords="30,82,76,97" href="main.htm" alt="Welcome!!" title="Welcome!!">
+</map>
+</body>
+</html>
