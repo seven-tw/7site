@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>====  7  號  試  作  机  ====</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+
+<meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0">
+
+<meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.18design.com/7site">
+<meta property="og:title" content="=== 7 號試作机 ===">
+<meta property="og:description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta property="og:image" content="http://www.18design.com/7site/images/og_share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V6LN8N72EP');
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+  }
+
+  .layout-container {
+    display: flex;
+    width: 100%; 
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .frame-a { flex: 182; height: 100%; border: none; }
+  .frame-b { flex: 243; height: 100%; border: none; }
+  .frame-c { flex: 355; height: 100%; border: none; }
+
+  @media screen and (max-width: 768px) {
+    html, body {
+      height: auto !important;
+      overflow: auto !important; 
+      -webkit-overflow-scrolling: touch;
+    }
+    .layout-container {
+      display: block !important; 
+      width: 100% !important;
+      height: auto !important;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+    .frame-a, .frame-b, .frame-c {
+      display: block;
+      margin-bottom: 0px;
+    }
+    
+    .frame-a { width: 100% !important; height: 450px !important; }
+    
+    .frame-b { 
+      width: 108% !important; 
+      margin-left: -4%;
+      height: 500px !important; 
+    } 
+    
+    .frame-c { width: 100% !important; height: 1400px !important; } 
+  }
+</style>
+</head>
+<style>
+  .orientation-warning {
+    display: none;
+  }
+
+  @media screen and (orientation: portrait) {
+    .orientation-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.90); 
+      z-index: 99999;
+      color: #FFFFFF;
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .orientation-warning img {
+      max-width: 200px; 
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .orientation-warning p {
+      font-size: 35px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="orientation-warning">
+  <img src="images/intro_mobile.gif" alt="Please rotate your device">
+  <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
+</div>
+<body>
+
+  <div class="layout-container">
+    <iframe src="about7_a.htm" name="a" class="frame-a" scrolling="no"></iframe>
+    <iframe src="about7_b.htm" name="b" class="frame-b" scrolling="no"></iframe>
+    <iframe src="about7_c.htm" name="c" class="frame-c"></iframe>
+  </div>
+
+</body>
+</html>
