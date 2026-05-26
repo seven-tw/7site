@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>====  7  號  試  作  机  ====</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+<style type="text/css">
+  /* ??? 徹底解放全域滿版設定 */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    overflow: hidden; /* 防止最外層雙重捲軸 */
+  }
+
+  /* ?? 現代彈性上下雙欄容器，完美復刻舊版 frameset 比例 */
+  .comic-container-vertical {
+    display: flex;
+    flex-direction: column; /* 設為上下結構 */
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ?? 上欄（對應原本的 comic_b.htm，高度固定 98px） */
+  .frame-top {
+    width: 100%;
+    height: 98px;
+    border: none;
+    flex-shrink: 0; /* 鎖死高度，絕對不被擠壓 */
+  }
+
+  /* ?? 下欄漫畫區（對應原本的 comic_c.htm，自動填滿並全面解鎖滑動） */
+  .frame-bottom-holder {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    /* ?? 核心關鍵：強制允許下欄在手機橫式時可以自由上下、左右滑動 */
+    overflow: auto !important; 
+    -webkit-overflow-scrolling: touch; /* 讓 iOS 滑動更流暢 */
+    position: relative;
+  }
+
+  .frame-bottom {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="comic-container-vertical">
+
+  <iframe src="comic_b.htm" name="02" class="frame-top" scrolling="no"></iframe>
+
+  <div class="frame-bottom-holder">
+    <iframe src="comic_c.htm" name="03" class="frame-bottom" scrolling="yes"></iframe>
+  </div>
+
+</div>
+
+</body>
+</html>

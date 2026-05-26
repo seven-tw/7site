@@ -1,0 +1,152 @@
+<html>
+<head>
+<title>====  7  號  試  作  机  ====</title>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+
+<meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://www.18design.com/7site">
+<meta property="og:title" content="=== 7 號試作机 ===">
+<meta property="og:description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta property="og:image" content="http://www.18design.com/7site/images/og_share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style type="text/css">
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    overflow: hidden; 
+  }
+
+  .comic-frameset {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .frame-left {
+    width: 200px;
+    height: 100%;
+    border: none;
+    flex-shrink: 0;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .frame-right-container {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #000000;
+  }
+
+  .frame-right-top {
+    width: 100%;
+    height: 98px;
+    border: none;
+    flex-shrink: 0;
+  }
+
+  .frame-right-bottom-holder {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .frame-right-bottom {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V6LN8N72EP');
+</script>
+
+</head>
+<style>
+  .orientation-warning {
+    display: none;
+  }
+
+  @media screen and (orientation: portrait) {
+    .orientation-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.90); 
+      z-index: 99999;
+      color: #FFFFFF;
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .orientation-warning img {
+      max-width: 200px; 
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .orientation-warning p {
+      font-size: 35px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="orientation-warning">
+  <img src="../images/intro_mobile.gif" alt="Please rotate your device">
+  <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
+</div>
+
+<body>
+
+<div class="comic-frameset">
+
+  <iframe src="comic_a.htm" id="01" name="01" class="frame-left" scrolling="yes"></iframe>
+
+  <div class="frame-right-container">
+    
+    <iframe src="comic_b.htm" id="02" name="02" class="frame-right-top" scrolling="no"></iframe>
+    
+    <div class="frame-right-bottom-holder">
+      <iframe src="comic_c.htm" id="03" name="03" class="frame-right-bottom" scrolling="yes"></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
