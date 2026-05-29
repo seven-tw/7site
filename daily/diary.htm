@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+    <title>||||||| Digital Diary |||||||</title>
+    <style>
+        body {
+            background-color: #99CCFF;
+            color: #666666;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 20px 10px;
+        }
+        a { color: #0099FF; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .responsive-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .calendar-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+        .calen-main-table {
+            border: 1px solid #99CCFF;
+            background-color: white;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        .calen-main-table th {
+            background-color: #F0F5FD;
+            height: 30px;
+            font-size: 14px;
+        }
+        .calen-main-table td {
+            width: 35px; height: 35px;
+            text-align: center; vertical-align: top;
+            padding: 4px; border: 1px solid #99CCFF;
+        }
+        .w-sun { color: #CC3366; font-weight: bold; }
+        .w-sat { color: #6666FF; font-weight: bold; }
+        .w-nor { color: #999999; }
+        .s {
+            font-size: 12px; color: #666666;
+            border: 1px solid #999999; background-color: #ECF5FD;
+            padding: 3px; border-radius: 3px;
+        }
+        .btn-submit {
+            font-size: 12px; color: #666666;
+            background-color: #DFEFFF; border: 1px solid #999999;
+            padding: 3px 8px; cursor: pointer; border-radius: 3px;
+        }
+        .content-box {
+            background-color: white;
+            width: 95%; max-width: 600px;
+            margin: 15px auto; border: 1px solid #999999;
+            border-radius: 4px; padding: 15px; text-align: left;
+        }
+        .sub-title { color: #FF9900; font-size: 14px; }
+        hr { border: 0; height: 1px; background-color: powderblue; margin: 10px 0; }
+        
+        /* 日記呈現樣式（支援原始格式換行） */
+        .diary-item {
+            border-bottom: 1px dashed #CCCCCC;
+            padding: 10px 0;
+        }
+        .diary-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+
+<div class="responsive-container">
+    <center>
+        <font color="#CCCCCC" size="6"><b><span>||||||| Digital Diary |||||||</span></b></font>
+        <p></p>
+
+        <div class="calendar-scroll-wrapper">
+            <table class="calen-main-table">
+                <tr><th colspan="7" id="calendar-title">2002年 4月</th></tr>
+                <tr>
+                    <td class="w-sun">SUN</td><td class="w-nor">MON</td><td class="w-nor">TUE</td>
+                    <td class="w-nor">WED</td><td class="w-nor">THU</td><td class="w-nor">FRI</td><td class="w-sat">SAT</td>
+                </tr>
+                <tr>
+                    <td>-</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+                </tr>
+                </table>
+        </div>
+
+        <table border="0" align="center">
+            <tr>
+                <td>
+                    <select id="yearSelect" class="s">
+                        <option value="2002" selected>2002 年</option>
+                        <option value="2026">2026 年</option>
+                    </select>
+                    <select id="monthSelect" class="s">
+                        <option value="01">1 月</option>
+                        <option value="02">2 月</option>
+                        <option value="03">3 月</option>
+                        <option value="04" selected>4 月</option>
+                        <option value="05">5 月</option>
+                    </select>
+                    <button type="button" class="btn-submit" onclick="loadDiaryFile()">切換並讀取TXT</button>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        <div class="content-box">
+            <center><b id="display-date">正在載入日記資料...</b></center>
+            <hr>
+            <div id="diary-content" style="padding:10px; line-height:1.6;">
+                請點擊上方按鈕讀取 `.txt` 檔案。
+            </div>
+        </div>
+
+    </center>
+</div>
+
+<script>
+function loadDiaryFile() {
+    // 1. 取得使用者選擇的年、月，並組合成檔名（例如 200204）
+    const year = document.getElementById('yearSelect').value;
+    const month = document.getElementById('monthSelect').value;
+    const fileName = `${year}${month}.txt`;
+
+    // 更新網頁上的標題提示
+    document.getElementById('calendar-title').innerText = `${year}年 ${parseInt(month)}月`;
+    document.getElementById('display-date').innerText = `${year}年 ${parseInt(month)}月 的所有記事`;
+    
+    const contentDiv = document.getElementById('diary-content');
+    contentDiv.innerHTML = `正在嘗試讀取 ${fileName} ...`;
+
+    // 2. 使用 Fetch API 去讀取同目錄下的 TXT 檔案
+    fetch(fileName)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`找不到檔案：${fileName}<br>請確認該文字檔有跟這個 htm 放在同一個資料夾。`);
+            }
+            return response.arrayBuffer(); // 先轉成二進位，避免 Big5 亂碼
+        })
+        .then(buffer => {
+            // 自動將原本可能為 Big5 或是 UTF-8 的檔案轉碼，防止舊日記文字變亂碼
+            const decoder = new TextDecoder('big5'); 
+            const text = decoder.decode(buffer);
+            
+            // 3. 解析 Kent-Web 經典的「<>」分割格式
+            // 格式範例：日<>標題<>內容<>
+            const lines = text.split('\n');
+            let htmlOutput = "";
+
+            lines.forEach(line => {
+                if(line.trim() === "") return;
+                const parts = line.split('<>');
+                if(parts.length >= 3 && parts[1] !== "") {
+                    const day = parts[0];
+                    const subject = parts[1];
+                    let message = parts[2];
+
+                    // 還原原本 cgi 的換行標籤
+                    message = message.replace(/&lt;/g, '<').replace(/&gt;/g, '>'); 
+
+                    htmlOutput += `
+                        <div class="diary-item">
+                            <span style="color: #FF9900; font-weight: bold;">[${parseInt(month)}/${parseInt(day)}] ${subject}</span>
+                            <div style="margin-top: 5px; color: #333333;">${message}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            if(htmlOutput === "") {
+                contentDiv.innerHTML = "該月份檔案中沒有找到有效的日記資料（或格式不符）。";
+            } else {
+                contentDiv.innerHTML = htmlOutput;
+            }
+        })
+        .catch(error => {
+            contentDiv.innerHTML = `<span style="color:red;">${error.message}</span>`;
+        });
+}
+
+// 網頁開啟時自動讀取一次
+window.onload = loadDiaryFile;
+</script>
+
+</body>
+</html>
