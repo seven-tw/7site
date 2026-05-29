@@ -48,22 +48,17 @@
         .w-sat { color: #6666FF; font-weight: bold; }
         .w-nor { color: #999999; }
         
-        /* 有日記的星星圖示樣式 */
         .diary-star {
             display: inline-block;
             color: #FF9900;
             font-size: 14px;
             margin-top: 2px;
-            animation: pulse 2s infinite;
         }
-
         .s {
             font-size: 12px; color: #666666;
             border: 1px solid #999999; background-color: #ECF5FD;
             padding: 3px; border-radius: 3px;
         }
-        
-        /* 頁面按鈕通用樣式 */
         .btn-submit {
             font-size: 12px; color: #666666;
             background-color: #DFEFFF; border: 1px solid #999999;
@@ -74,8 +69,6 @@
             background-color: #99CCFF;
             color: white;
         }
-        
-        /* 前後月份文字按鈕樣式 */
         .btn-nav {
             font-size: 11px;
             font-weight: bold;
@@ -90,7 +83,6 @@
             background-color: #F0F5FD;
             text-decoration: none;
         }
-
         .content-box {
             background-color: white;
             width: 95%; max-width: 600px;
@@ -111,9 +103,10 @@
 
 <div class="responsive-container">
     <center>
-        <font color="#CCCCCC" size="6"><b><span>||||||| Digital Diary |||||||</span></b></font>
+        <font color="#666666" size="6"><b><span>||||||| Digital Diary |||||||</span></b></font>
         <p></p>
 
+        <!-- 月曆區 -->
         <div class="calendar-scroll-wrapper">
             <table class="calen-main-table">
                 <tr><th colspan="7" id="calendar-title">2002年 4月</th></tr>
@@ -130,13 +123,16 @@
         <a href="#" class="btn-nav">◀ BACK</a>
         <a href="#" class="btn-nav">NEXT ▶</a>
 
+        <!-- 檔案讀取控制區 -->
         <p></p>
         <table border="0" align="center">
             <tr>
                 <td>
+                    <!-- 🎯 已修正：年份選單僅保留 2000, 2001, 2002，並預設為 2002 -->
                     <select id="yearSelect" class="s">
+                        <option value="2000">2000 年</option>
+                        <option value="2001">2001 年</option>
                         <option value="2002" selected>2002 年</option>
-                        <option value="2026">2026 年</option>
                     </select>
                     <select id="monthSelect" class="s">
                         <option value="01">1 月</option>
@@ -144,6 +140,13 @@
                         <option value="03">3 月</option>
                         <option value="04" selected>4 月</option>
                         <option value="05">5 月</option>
+                        <option value="06">6 月</option>
+                        <option value="07">7 月</option>
+                        <option value="08">8 月</option>
+                        <option value="09">9 月</option>
+                        <option value="10">10 月</option>
+                        <option value="11">11 月</option>
+                        <option value="12">12 月</option>
                     </select>
                     <button type="button" class="btn-submit" onclick="loadDiaryFile()">切換並讀取TXT</button>
                 </td>
@@ -151,6 +154,7 @@
         </table>
         <br>
 
+        <!-- 日記顯示區 -->
         <div class="content-box">
             <center><b id="display-date">正在載入日記資料...</b></center>
             <hr>
@@ -198,7 +202,14 @@ function loadDiaryFile() {
 
                     message = message.replace(/&lt;/g, '<').replace(/&gt;/g, '>'); 
 
-                    // 🎯 修改處：把原本有日記要顯示的 7up.gif 改成精緻的黃色小星星 ★
+                    // 🎯 包含上一版加入的「破圖自動隱藏」防護機制
+                    message = message.replace(/<img\s([^>]*?)\/?>/gi, (match) => {
+                        if (!match.includes('onerror')) {
+                            return match.replace('<img', '<img onerror="this.style.display=\'none\';" style="max-width:100%; height:auto; display:block; margin:10px 0;"');
+                        }
+                        return match;
+                    });
+
                     htmlOutput += `
                         <div class="diary-item">
                             <span style="color: #FF9900; font-weight: bold;">
