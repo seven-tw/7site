@@ -40,23 +40,57 @@
             font-size: 14px;
         }
         .calen-main-table td {
-            width: 35px; height: 35px;
+            width: 40px; height: 40px;
             text-align: center; vertical-align: top;
             padding: 4px; border: 1px solid #99CCFF;
         }
         .w-sun { color: #CC3366; font-weight: bold; }
         .w-sat { color: #6666FF; font-weight: bold; }
         .w-nor { color: #999999; }
+        
+        /* 有日記的星星圖示樣式 */
+        .diary-star {
+            display: inline-block;
+            color: #FF9900;
+            font-size: 14px;
+            margin-top: 2px;
+            animation: pulse 2s infinite;
+        }
+
         .s {
             font-size: 12px; color: #666666;
             border: 1px solid #999999; background-color: #ECF5FD;
             padding: 3px; border-radius: 3px;
         }
+        
+        /* 頁面按鈕通用樣式 */
         .btn-submit {
             font-size: 12px; color: #666666;
             background-color: #DFEFFF; border: 1px solid #999999;
-            padding: 3px 8px; cursor: pointer; border-radius: 3px;
+            padding: 4px 10px; cursor: pointer; border-radius: 3px;
+            display: inline-block;
         }
+        .btn-submit:hover {
+            background-color: #99CCFF;
+            color: white;
+        }
+        
+        /* 前後月份文字按鈕樣式 */
+        .btn-nav {
+            font-size: 11px;
+            font-weight: bold;
+            color: #555555;
+            background-color: #FFFFFF;
+            border: 1px solid #99CCFF;
+            padding: 3px 8px;
+            margin: 0 5px;
+            border-radius: 3px;
+        }
+        .btn-nav:hover {
+            background-color: #F0F5FD;
+            text-decoration: none;
+        }
+
         .content-box {
             background-color: white;
             width: 95%; max-width: 600px;
@@ -66,7 +100,6 @@
         .sub-title { color: #FF9900; font-size: 14px; }
         hr { border: 0; height: 1px; background-color: powderblue; margin: 10px 0; }
         
-        /* 日記呈現樣式（支援原始格式換行） */
         .diary-item {
             border-bottom: 1px dashed #CCCCCC;
             padding: 10px 0;
@@ -91,9 +124,13 @@
                 <tr>
                     <td>-</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
                 </tr>
-                </table>
+            </table>
         </div>
 
+        <a href="#" class="btn-nav">◀ BACK</a>
+        <a href="#" class="btn-nav">NEXT ▶</a>
+
+        <p></p>
         <table border="0" align="center">
             <tr>
                 <td>
@@ -127,33 +164,27 @@
 
 <script>
 function loadDiaryFile() {
-    // 1. 取得使用者選擇的年、月，並組合成檔名（例如 200204）
     const year = document.getElementById('yearSelect').value;
     const month = document.getElementById('monthSelect').value;
     const fileName = `${year}${month}.txt`;
 
-    // 更新網頁上的標題提示
     document.getElementById('calendar-title').innerText = `${year}年 ${parseInt(month)}月`;
     document.getElementById('display-date').innerText = `${year}年 ${parseInt(month)}月 的所有記事`;
     
     const contentDiv = document.getElementById('diary-content');
     contentDiv.innerHTML = `正在嘗試讀取 ${fileName} ...`;
 
-    // 2. 使用 Fetch API 去讀取同目錄下的 TXT 檔案
     fetch(fileName)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`找不到檔案：${fileName}<br>請確認該文字檔有跟這個 htm 放在同一個資料夾。`);
             }
-            return response.arrayBuffer(); // 先轉成二進位，避免 Big5 亂碼
+            return response.arrayBuffer();
         })
         .then(buffer => {
-            // 自動將原本可能為 Big5 或是 UTF-8 的檔案轉碼，防止舊日記文字變亂碼
             const decoder = new TextDecoder('big5'); 
             const text = decoder.decode(buffer);
             
-            // 3. 解析 Kent-Web 經典的「<>」分割格式
-            // 格式範例：日<>標題<>內容<>
             const lines = text.split('\n');
             let htmlOutput = "";
 
@@ -165,12 +196,14 @@ function loadDiaryFile() {
                     const subject = parts[1];
                     let message = parts[2];
 
-                    // 還原原本 cgi 的換行標籤
                     message = message.replace(/&lt;/g, '<').replace(/&gt;/g, '>'); 
 
+                    // 🎯 修改處：把原本有日記要顯示的 7up.gif 改成精緻的黃色小星星 ★
                     htmlOutput += `
                         <div class="diary-item">
-                            <span style="color: #FF9900; font-weight: bold;">[${parseInt(month)}/${parseInt(day)}] ${subject}</span>
+                            <span style="color: #FF9900; font-weight: bold;">
+                                [${parseInt(month)}/${parseInt(day)}] ${subject} <span class="diary-star">★</span>
+                            </span>
                             <div style="margin-top: 5px; color: #333333;">${message}</div>
                         </div>
                     `;
@@ -188,7 +221,6 @@ function loadDiaryFile() {
         });
 }
 
-// 網頁開啟時自動讀取一次
 window.onload = loadDiaryFile;
 </script>
 
