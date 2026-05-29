@@ -32,17 +32,17 @@
     width: 100%;
     height: 100%;
     background-color: #000000;
-    overflow: hidden; /* 防止最外層雙重捲軸 */
+    overflow: hidden; 
   }
 
-  /* 現代左右雙欄彈性佈局 */
+
   .comic-frameset {
     display: flex;
     width: 100%;
     height: 100%;
   }
 
-  /* 左側導覽欄（固定 200px 寬，可上下滑動） */
+
   .frame-left {
     width: 200px;
     height: 100%;
@@ -52,25 +52,25 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* 右側綜合大容器 */
+
   .frame-right-container {
     flex-grow: 1;
     height: 100%;
     display: flex;
-    flex-direction: column; /* 設為上下垂直排列 */
+    flex-direction: column; 
     position: relative;
     background-color: #000000;
   }
 
-  /* 🎯 右側「上欄選單」：高度調成 98px，直接抓真正放選單動畫的 comic_b.htm */
+
   .frame-right-top {
     width: 100%;
     height: 98px;
     border: none;
-    flex-shrink: 0; /* 鎖死高度不被擠壓 */
+    flex-shrink: 0; 
   }
 
-  /* 右側「下欄漫畫內容」：開啟絕對滑動權限 */
+
   .frame-right-bottom-holder {
     width: 100%;
     flex-grow: 1;
