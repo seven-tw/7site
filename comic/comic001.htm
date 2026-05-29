@@ -1,7 +1,30 @@
 <html>
 <head>
-<title>==== 7 �� �� �@ �� ====</title>
-<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<title>繪畫作品 - 七號試作机</title>
+<meta charset="UTF-8">
+<meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.7site.cc/">
+<meta property="og:title" content="=== 7號試作机 ===">
+<meta property="og:description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
+<meta property="og:image" content="https://www.7site.cc/images/og_share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V6LN8N72EP');
+</script>
+
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
 <style type="text/css">
 <!--
 .s1 {  font-size: 9pt}
@@ -11,7 +34,53 @@ a:visited{color:#ffffff;text-decoration:none}
 a:hover{color:#ffffff;text-decoration:underline}
 -->
 </style>
+
 </head>
+
+<style>
+  .orientation-warning {
+    display: none;
+  }
+
+  @media screen and (orientation: portrait) {
+    .orientation-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.90); 
+      z-index: 99999;
+      color: #FFFFFF;
+      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .orientation-warning img {
+      max-width: 200px; 
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .orientation-warning p {
+      font-size: 35px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      margin: 0;
+    }
+  }
+</style>
+
+<div class="orientation-warning">
+  <img src="../images/intro_mobile.gif" alt="Please rotate your device">
+  <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
+</div>
 
 <body bgcolor="#CCCCCC">
 <p align="center"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=4,0,2,0" width="470" height="480">
@@ -28,7 +97,7 @@ a:hover{color:#ffffff;text-decoration:underline}
   <div align="right">
         <table width="101" border="0" cellspacing="0" cellpadding="0">
           <tr> 
-            <td><a href="comic_p.htm"><img src="images/cbar_l.gif" width="29" height="15" border="0" alt="�˱a"></a><a href="comic.htm"><img src="images/cbar_c.gif" width="43" height="15" border="0" alt="�^���"></a><a href="comic002.htm"><img src="images/cbar_r.gif" width="29" height="15" border="0" alt="����"></a></td>
+            <td><a href="comic_p.htm"><img src="images/cbar_l.gif" width="29" height="15" border="0" alt="倒帶"></a><a href="comic.htm"><img src="images/cbar_c.gif" width="43" height="15" border="0" alt="回選單"></a><a href="comic002.htm"><img src="images/cbar_r.gif" width="29" height="15" border="0" alt="快轉"></a></td>
           </tr>
         </table>
         <br></div>
@@ -36,7 +105,7 @@ a:hover{color:#ffffff;text-decoration:underline}
     </tr>
     <tr>      
     <td> 
-      <div align="right"><font color="#ffffff" face="Arial, Helvetica, sans-serif"><a href="../index.htm" target="_top"><span class="s1">Home</span></a><span class="s1">�x<a href="../inside.htm" target="_top">Inside</a>�x<a href="../about/about7.htm" target="_top">About</a>�x<a href="../design/des.htm" target="_top">Design</a>�x<a href="../game/game.htm" target="_top">Game</a>�x<a href="../link/link.htm" target="_top">Link</a>�x<a href="http://two.guestbook.de/gb.cgi?gid=381230&amp;prot=oyrjpx" target="_top">Guestbook</a></span></font></div>
+      <div align="right"><font color="#ffffff" face="Arial, Helvetica, sans-serif"><a href="../index.htm" target="_top"><span class="s1">Home</span></a><span class="s1"> │ <a href="../inside.htm" target="_top">Inside</a> │ <a href="../about/about7.htm" target="_top">About</a> │ <a href="../design/des.htm" target="_top">Design</a> │ <a href="../game/game.htm" target="_top">Game</a> │ <a href="../link/link.htm" target="_top">Link</a> │ <a href="../guestbook.htm" target="_blank">Guestbook</a></span></font></div>
     </td>
     </tr>
   </table>
