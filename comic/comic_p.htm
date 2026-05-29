@@ -23,6 +23,68 @@
   gtag('config', 'G-V6LN8N72EP');
 </script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+
+<style type="text/css">
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    overflow: hidden; /* 防止最外層雙重捲軸 */
+  }
+
+  /* 現代左右雙欄彈性佈局 */
+  .comic-frameset {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 左側導覽欄（固定 200px 寬，可上下滑動） */
+  .frame-left {
+    width: 200px;
+    height: 100%;
+    border: none;
+    flex-shrink: 0;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 右側綜合大容器 */
+  .frame-right-container {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* 設為上下垂直排列 */
+    position: relative;
+    background-color: #000000;
+  }
+
+  /* 🎯 右側「上欄選單」：高度調成 98px，直接抓真正放選單動畫的 comic_b.htm */
+  .frame-right-top {
+    width: 100%;
+    height: 98px;
+    border: none;
+    flex-shrink: 0; /* 鎖死高度不被擠壓 */
+  }
+
+  /* 右側「下欄漫畫內容」：開啟絕對滑動權限 */
+  .frame-right-bottom-holder {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .frame-right-bottom {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>
 </head>
 
 <style>
@@ -70,11 +132,23 @@
   <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
 </div>
 
-<frameset cols="154,629" frameborder="NO" rows="*" border="0" framespacing="0"> 
-  <frame src="comic_a.htm" frameborder="NO" scrolling="NO" marginwidth="0" marginheight="0" name="01">
-  <frame src="comic2.htm">
-</frameset>
-<noframes>
-<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-</body></noframes>
+<body>
+
+<div class="comic-frameset">
+
+  <iframe src="comic_a.htm" id="01" name="01" class="frame-left" scrolling="yes"></iframe>
+
+  <div class="frame-right-container">
+    
+    <iframe src="comic_b.htm" id="02" name="02" class="frame-right-top" scrolling="no"></iframe>
+    
+    <div class="frame-right-bottom-holder">
+      <iframe src="comic_c.htm" id="03" name="03" class="frame-right-bottom" scrolling="yes"></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
 </html>
