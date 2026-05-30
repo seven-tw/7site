@@ -77,23 +77,6 @@
             border: 1px solid #999999; background-color: #ECF5FD;
             padding: 4px; border-radius: 3px;
         }
-        /* 被禁用的月份樣式 */
-        .s option:disabled {
-            color: #BBBBBB;
-            background-color: #EEEEEE;
-        }
-
-        .btn-submit {
-            font-size: 13px; color: #666666;
-            background-color: #DFEFFF; border: 1px solid #999999;
-            padding: 4px 12px; cursor: pointer; border-radius: 3px;
-            display: inline-block;
-            font-weight: bold;
-        }
-        .btn-submit:hover {
-            background-color: #99CCFF;
-            color: white;
-        }
         
         .content-box {
             background-color: white;
@@ -142,26 +125,13 @@
         <table border="0" align="center">
             <tr>
                 <td>
-                    <select id="yearSelect" class="s" onchange="checkAvailableMonths()">
+                    <select id="yearSelect" class="s" onchange="checkAvailableMonths(true)">
                         <option value="2000">2000 年</option>
                         <option value="2001">2001 年</option>
                         <option value="2002" selected>2002 年</option>
                     </select>
-                    <select id="monthSelect" class="s">
-                        <option value="01">1 月</option>
-                        <option value="02">2 月</option>
-                        <option value="03">3 月</option>
-                        <option value="04" selected>4 月</option>
-                        <option value="05">5 月</option>
-                        <option value="06">6 月</option>
-                        <option value="07">7 月</option>
-                        <option value="08">8 月</option>
-                        <option value="09">9 月</option>
-                        <option value="10">10 月</option>
-                        <option value="11">11 月</option>
-                        <option value="12">12 月</option>
-                    </select>
-                    <button type="button" class="btn-submit" onclick="loadDiaryFile()">切換並讀取TXT</button>
+                    <select id="monthSelect" class="s" onchange="loadDiaryFile()">
+                        </select>
                 </td>
             </tr>
         </table>
@@ -171,7 +141,7 @@
             <center><b id="display-date" style="font-size: 16px;">正在載入日記資料...</b></center>
             <hr>
             <div id="diary-content" style="min-height: 100px;">
-                請點擊上方按鈕讀取 `.txt` 檔案。
+                正在整理您的日誌檔案...
             </div>
         </div>
 
@@ -180,55 +150,74 @@
 
 <script>
 let activeDays = {};
+// 全局紀錄目前選擇的月份，避免重刷選單時跳移
+let lastSelectedMonth = "04"; 
 
-// 🎯 修正：動態檢測當前年份有哪些月份的 TXT 檔存在，並隱藏沒有文章的月份
-function checkAvailableMonths() {
+// 🎯 修正：探測並「只顯示」有文章的月份。無文章的月份完全不建進選單內。
+function checkAvailableMonths(triggerLoad = false) {
     const year = document.getElementById('yearSelect').value;
     const monthSelect = document.getElementById('monthSelect');
-    const options = monthSelect.options;
+    
+    // 全部的月份對照表
+    const allMonths = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+    let checkPromises = [];
 
-    // 巡迴 1~12 月，探測檔案是否存在
-    for (let i = 0; i < options.length; i++) {
-        const m = options[i].value;
+    // 發出 HEAD 請求檢查哪些月份的檔案存在
+    allMonths.forEach(m => {
         const fileUrl = `${year}${m}.txt`;
+        const p = fetch(fileUrl, { method: 'HEAD' })
+            .then(res => ({ month: m, exists: res.ok }))
+            .catch(() => ({ month: m, exists: false }));
+        checkPromises.push(p);
+    });
 
-        // 使用 HEAD 請求快速偵測檔案，不占用過多流量
-        fetch(fileUrl, { method: 'HEAD' })
-            .then(res => {
-                if (res.ok) {
-                    options[i].disabled = false;
-                    options[i].text = `${parseInt(m)} 月 (有文章)`;
-                } else {
-                    options[i].disabled = true;
-                    options[i].text = `${parseInt(m)} 月 (無文章)`;
-                    // 如果目前選中的月份剛好無文章，自動跳到第一個可選的月份
-                    if (monthSelect.value === m) {
-                        autoSelectFirstValid();
-                    }
-                }
-            })
-            .catch(() => {
-                options[i].disabled = true;
-                options[i].text = `${parseInt(m)} 月 (無文章)`;
-            });
-    }
-}
+    Promise.all(checkPromises).then(results => {
+        // 先清空原本的月份選單
+        monthSelect.innerHTML = "";
+        let hasValidMonth = false;
+        let bestTargetMonth = lastSelectedMonth;
 
-function autoSelectFirstValid() {
-    const monthSelect = document.getElementById('monthSelect');
-    for (let option of monthSelect.options) {
-        if (!option.disabled) {
-            monthSelect.value = option.value;
-            break;
+        results.forEach(item => {
+            if (item.exists) {
+                let opt = document.createElement('option');
+                opt.value = item.month;
+                opt.text = `${parseInt(item.month)} 月`;
+                monthSelect.appendChild(opt);
+                hasValidMonth = true;
+            }
+        });
+
+        if (!hasValidMonth) {
+            let opt = document.createElement('option');
+            opt.text = "無任何日誌檔";
+            opt.disabled = true;
+            monthSelect.appendChild(opt);
+            document.getElementById('diary-content').innerHTML = `<span style="color:red;">在 ${year} 年內找不到任何日記文字檔（如 ${year}04.txt）。</span>`;
+            return;
         }
-    }
+
+        // 檢查剛才記錄的月份是否還存在於新年份中
+        const optionExists = Array.from(monthSelect.options).some(opt => opt.value === bestTargetMonth);
+        if (optionExists) {
+            monthSelect.value = bestTargetMonth;
+        } else {
+            // 如果不存在，預設選取新年份中可選的第一個月份
+            monthSelect.value = monthSelect.options[0].value;
+        }
+
+        // 當使用者切換年份時，或初始化時，觸發自動載入
+        if (triggerLoad) {
+            loadDiaryFile();
+        }
+    });
 }
 
-// 🎯 修正：精準計算週數，移除月曆底部多出來的空白行
 function generateCalendarSkeleton() {
     const year = parseInt(document.getElementById('yearSelect').value);
-    const month = parseInt(document.getElementById('monthSelect').value);
+    const monthSelect = document.getElementById('monthSelect');
+    if (!monthSelect.value) return;
     
+    const month = parseInt(monthSelect.value);
     const table = document.getElementById('calendar-table');
     table.innerHTML = ""; 
 
@@ -243,7 +232,6 @@ function generateCalendarSkeleton() {
     const firstDayIndex = new Date(year, month - 1, 1).getDay();
     const totalDays = new Date(year, month, 0).getDate();
 
-    // 🎯 修正核心：動態計算這個月到底需要 4 行、5 行還是 6 行
     const totalCellsNeeded = firstDayIndex + totalDays;
     const rowsNeeded = Math.ceil(totalCellsNeeded / 7);
 
@@ -271,21 +259,26 @@ function generateCalendarSkeleton() {
     table.innerHTML = html;
 }
 
+// 🎯 修正：連動讀取主程式
 function loadDiaryFile() {
+    const monthSelect = document.getElementById('monthSelect');
+    if (!monthSelect.value) return;
+    
+    lastSelectedMonth = monthSelect.value; // 紀錄當下選取月份
     generateCalendarSkeleton(); 
     
     const year = document.getElementById('yearSelect').value;
-    const month = document.getElementById('monthSelect').value;
+    const month = monthSelect.value;
     const fileName = `${year}${month}.txt`;
 
     document.getElementById('display-date').innerText = `${year}年 ${parseInt(month)}月 的所有記事`;
     const contentDiv = document.getElementById('diary-content');
-    contentDiv.innerHTML = `正在嘗試讀取 ${fileName} ...`;
+    contentDiv.innerHTML = `正在動態讀取 ${fileName} ...`;
 
     fetch(fileName)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`找不到檔案：${fileName}<br>請確認該文字檔有與此 htm 放在同一個目錄。`);
+                throw new Error(`找不到檔案：${fileName}<br>請確認檔案放置路徑。`);
             }
             return response.arrayBuffer();
         })
@@ -347,10 +340,10 @@ function loadDiaryFile() {
         });
 }
 
-// 首次載入先執行月份探測與讀取
+// 初始化啟動
 window.onload = function() {
-    checkAvailableMonths();
-    loadDiaryFile();
+    // 第一次執行，探測月份並同步加載日記
+    checkAvailableMonths(true);
 };
 </script>
 
