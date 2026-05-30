@@ -9,12 +9,13 @@
             background-color: #99CCFF;
             color: #666666;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 13px; /* 全域字體微調大 */
             margin: 0;
             padding: 20px 10px;
         }
         a { color: #0099FF; text-decoration: none; }
         a:hover { text-decoration: underline; }
+        
         .responsive-container {
             max-width: 800px;
             margin: 0 auto;
@@ -23,6 +24,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
+        
+        /* 月曆外殼與表格 */
         .calendar-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -36,105 +39,119 @@
         }
         .calen-main-table th {
             background-color: #F0F5FD;
-            height: 30px;
-            font-size: 14px;
+            height: 35px;
+            font-size: 16px;
         }
         .calen-main-table td {
-            width: 40px; height: 40px;
-            text-align: center; vertical-align: top;
-            padding: 4px; border: 1px solid #99CCFF;
+            width: 45px; 
+            height: 45px;
+            text-align: center; 
+            vertical-align: top;
+            padding: 4px; 
+            border: 1px solid #99CCFF;
+            font-size: 12px;
         }
+        
+        /* 星期顏色 */
         .w-sun { color: #CC3366; font-weight: bold; }
         .w-sat { color: #6666FF; font-weight: bold; }
         .w-nor { color: #999999; }
         
-        .diary-star {
+        /* 月曆格子內的樣式 */
+        .cal-day-num {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+        .cal-star-link {
             display: inline-block;
             color: #FF9900;
-            font-size: 14px;
-            margin-top: 2px;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
         }
+        .cal-star-link:hover {
+            transform: scale(1.3);
+        }
+        
+        /* 下拉選單 */
         .s {
-            font-size: 12px; color: #666666;
+            font-size: 13px; color: #666666;
             border: 1px solid #999999; background-color: #ECF5FD;
-            padding: 3px; border-radius: 3px;
+            padding: 4px; border-radius: 3px;
         }
         .btn-submit {
-            font-size: 12px; color: #666666;
+            font-size: 13px; color: #666666;
             background-color: #DFEFFF; border: 1px solid #999999;
-            padding: 4px 10px; cursor: pointer; border-radius: 3px;
+            padding: 4px 12px; cursor: pointer; border-radius: 3px;
             display: inline-block;
+            font-weight: bold;
         }
         .btn-submit:hover {
             background-color: #99CCFF;
             color: white;
         }
-        .btn-nav {
-            font-size: 11px;
-            font-weight: bold;
-            color: #555555;
-            background-color: #FFFFFF;
-            border: 1px solid #99CCFF;
-            padding: 3px 8px;
-            margin: 0 5px;
-            border-radius: 3px;
-        }
-        .btn-nav:hover {
-            background-color: #F0F5FD;
-            text-decoration: none;
-        }
+        
+        /* 日記顯示區（字體放大） */
         .content-box {
             background-color: white;
-            width: 95%; max-width: 600px;
+            width: 95%; max-width: 650px;
             margin: 15px auto; border: 1px solid #999999;
-            border-radius: 4px; padding: 15px; text-align: left;
+            border-radius: 4px; padding: 20px; text-align: left;
         }
-        .sub-title { color: #FF9900; font-size: 14px; }
-        hr { border: 0; height: 1px; background-color: powderblue; margin: 10px 0; }
+        .sub-title { 
+            color: #FF9900; 
+            font-size: 18px; /* 🎯 標題放大 */
+            font-weight: bold;
+        }
+        .diary-date-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        hr { border: 0; height: 1px; background-color: powderblue; margin: 12px 0; }
         
+        /* 🎯 日誌內文字體大小調大 */
         .diary-item {
             border-bottom: 1px dashed #CCCCCC;
-            padding: 10px 0;
+            padding: 15px 0;
+            scroll-margin-top: 20px; /* 錨點平滑滾動時的上方留白 */
         }
         .diary-item:last-child { border-bottom: none; }
+        .diary-body {
+            font-size: 15px; /* 🎯 內文放大至 15px */
+            line-height: 1.7; 
+            color: #333333;
+            margin-top: 8px;
+        }
+        .diary-star {
+            color: #FF9900;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
 <div class="responsive-container">
     <center>
-        <font color="#666666" size="6"><b><span>||||||| Digital Diary |||||||</span></b></font>
+        <font color="#CCCCCC" size="6"><b><span>||||||| Digital Diary |||||||</span></b></font>
         <p></p>
 
-        <!-- 月曆區 -->
         <div class="calendar-scroll-wrapper">
-            <table class="calen-main-table">
-                <tr><th colspan="7" id="calendar-title">2002年 4月</th></tr>
-                <tr>
-                    <td class="w-sun">SUN</td><td class="w-nor">MON</td><td class="w-nor">TUE</td>
-                    <td class="w-nor">WED</td><td class="w-nor">THU</td><td class="w-nor">FRI</td><td class="w-sat">SAT</td>
-                </tr>
-                <tr>
-                    <td>-</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
-                </tr>
-            </table>
+            <table class="calen-main-table" id="calendar-table">
+                </table>
         </div>
 
-        <a href="#" class="btn-nav">◀ BACK</a>
-        <a href="#" class="btn-nav">NEXT ▶</a>
-
-        <!-- 檔案讀取控制區 -->
         <p></p>
         <table border="0" align="center">
             <tr>
                 <td>
-                    <!-- 🎯 已修正：年份選單僅保留 2000, 2001, 2002，並預設為 2002 -->
-                    <select id="yearSelect" class="s">
+                    <select id="yearSelect" class="s" onchange="generateCalendarSkeleton()">
                         <option value="2000">2000 年</option>
                         <option value="2001">2001 年</option>
                         <option value="2002" selected>2002 年</option>
                     </select>
-                    <select id="monthSelect" class="s">
+                    <select id="monthSelect" class="s" onchange="generateCalendarSkeleton()">
                         <option value="01">1 月</option>
                         <option value="02">2 月</option>
                         <option value="03">3 月</option>
@@ -154,11 +171,10 @@
         </table>
         <br>
 
-        <!-- 日記顯示區 -->
         <div class="content-box">
-            <center><b id="display-date">正在載入日記資料...</b></center>
+            <center><b id="display-date" style="font-size: 16px;">正在載入日記資料...</b></center>
             <hr>
-            <div id="diary-content" style="padding:10px; line-height:1.6;">
+            <div id="diary-content">
                 請點擊上方按鈕讀取 `.txt` 檔案。
             </div>
         </div>
@@ -167,21 +183,75 @@
 </div>
 
 <script>
+// 全局變數，用來紀錄當月哪些天有文章
+let activeDays = {};
+
+// 1. 初始化與生成完整月份空月曆
+function generateCalendarSkeleton() {
+    const year = parseInt(document.getElementById('yearSelect').value);
+    const month = parseInt(document.getElementById('monthSelect').value);
+    
+    const table = document.getElementById('calendar-table');
+    table.innerHTML = ""; // 清空舊表格
+
+    // 建立表頭
+    let html = `<tr><th colspan="7">${year}年 ${month}月</th></tr>`;
+    html += `
+        <tr>
+            <td class="w-sun">SUN</td><td class="w-nor">MON</td><td class="w-nor">TUE</td>
+            <td class="w-nor">WED</td><td class="w-nor">THU</td><td class="w-nor">FRI</td><td class="w-sat">SAT</td>
+        </tr>
+    `;
+
+    // 計算當月第一天是星期幾，以及當月總天數
+    const firstDayIndex = new Date(year, month - 1, 1).getDay();
+    const totalDays = new Date(year, month, 0).getDate();
+
+    let dayCounter = 1;
+    // 固定產生 6 週（42格）以維持老式 cgi 的精準排版
+    for (let i = 0; i < 6; i++) {
+        html += "<tr>";
+        for (let j = 0; j < 7; j++) {
+            let cellClass = "w-nor";
+            if (j === 0) cellClass = "w-sun";
+            if (j === 6) cellClass = "w-sat";
+
+            const cellIndex = i * 7 + j;
+            if (cellIndex >= firstDayIndex && dayCounter <= totalDays) {
+                // 給每個日期的格子一個獨一無二的 ID，方便後面塞入星星
+                html += `<td class="${cellClass}" id="cal-day-${dayCounter}">
+                            <span class="cal-day-num">${dayCounter}</span>
+                            <span class="star-container"></span>
+                         </td>`;
+                dayCounter++;
+            } else {
+                html += `<td style="color:#DDDDDD;">-</td>`;
+            }
+        }
+        html += "</tr>";
+        if (dayCounter > totalDays && i >= 4) {
+            // 如果日期已經跑完，且已經滿5行，第6行若全為空則可省略，但為了嚴謹通常產滿 42 格
+        }
+    }
+    table.innerHTML = html;
+}
+
+// 2. 讀取 TXT 檔案並在月曆上打星號、生成文章
 function loadDiaryFile() {
+    generateCalendarSkeleton(); // 每次讀取前，先重組乾淨的月曆
+    
     const year = document.getElementById('yearSelect').value;
     const month = document.getElementById('monthSelect').value;
     const fileName = `${year}${month}.txt`;
 
-    document.getElementById('calendar-title').innerText = `${year}年 ${parseInt(month)}月`;
     document.getElementById('display-date').innerText = `${year}年 ${parseInt(month)}月 的所有記事`;
-    
     const contentDiv = document.getElementById('diary-content');
     contentDiv.innerHTML = `正在嘗試讀取 ${fileName} ...`;
 
     fetch(fileName)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`找不到檔案：${fileName}<br>請確認該文字檔有跟這個 htm 放在同一個資料夾。`);
+                throw new Error(`找不到檔案：${fileName}<br>請確認該文字檔有與此 htm 放在同一個目錄。`);
             }
             return response.arrayBuffer();
         })
@@ -191,18 +261,19 @@ function loadDiaryFile() {
             
             const lines = text.split('\n');
             let htmlOutput = "";
+            activeDays = {}; // 重置有紀錄的天數
 
             lines.forEach(line => {
                 if(line.trim() === "") return;
                 const parts = line.split('<>');
                 if(parts.length >= 3 && parts[1] !== "") {
-                    const day = parts[0];
+                    const day = parseInt(parts[0]);
                     const subject = parts[1];
                     let message = parts[2];
 
                     message = message.replace(/&lt;/g, '<').replace(/&gt;/g, '>'); 
 
-                    // 🎯 包含上一版加入的「破圖自動隱藏」防護機制
+                    // 破圖防護
                     message = message.replace(/<img\s([^>]*?)\/?>/gi, (match) => {
                         if (!match.includes('onerror')) {
                             return match.replace('<img', '<img onerror="this.style.display=\'none\';" style="max-width:100%; height:auto; display:block; margin:10px 0;"');
@@ -210,21 +281,34 @@ function loadDiaryFile() {
                         return match;
                     });
 
+                    // 標註這一天有日記
+                    activeDays[day] = true;
+
+                    // 生成文章區塊，並幫外層 div 加上 id (例如 id="post-13") 方便月曆錨點跳轉
                     htmlOutput += `
-                        <div class="diary-item">
-                            <span style="color: #FF9900; font-weight: bold;">
-                                [${parseInt(month)}/${parseInt(day)}] ${subject} <span class="diary-star">★</span>
-                            </span>
-                            <div style="margin-top: 5px; color: #333333;">${message}</div>
+                        <div class="diary-item" id="post-${day}">
+                            <span class="sub-title">${subject}</span> 
+                            <span class="diary-date-title">/ ${year}年${parseInt(month)}月${day}日</span>
+                            <div class="diary-body">${message}</div>
                         </div>
                     `;
                 }
             });
 
             if(htmlOutput === "") {
-                contentDiv.innerHTML = "該月份檔案中沒有找到有效的日記資料（或格式不符）。";
+                contentDiv.innerHTML = "該月份檔案中沒有找到有效的日記資料。";
             } else {
                 contentDiv.innerHTML = htmlOutput;
+                // 🎯 核心功能：動態把星星 ★ 補進對應的月曆格子裡，並加上點擊跳轉連結
+                for (let day in activeDays) {
+                    const dayCell = document.getElementById(`cal-day-${day}`);
+                    if (dayCell) {
+                        const starContainer = dayCell.querySelector('.star-container');
+                        if (starContainer) {
+                            starContainer.innerHTML = `<br><a class="cal-star-link" href="#post-${day}" title="點擊閱讀這篇日記">★</a>`;
+                        }
+                    }
+                }
             }
         })
         .catch(error => {
@@ -232,7 +316,10 @@ function loadDiaryFile() {
         });
 }
 
-window.onload = loadDiaryFile;
+// 網頁首次載入
+window.onload = function() {
+    loadDiaryFile();
+};
 </script>
 
 </body>
