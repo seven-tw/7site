@@ -35,16 +35,28 @@
         a { color: #0099FF; text-decoration: none; }
         a:hover { text-decoration: underline; }
         
-        /* 最上方選單連結樣式 */
+        /* 🎯 修正：最上方選單支援手機防斷行與橫向捲動 */
+        .nav-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 5px 0;
+            margin-bottom: 15px;
+        }
         .s1 {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 13px;
-            margin-bottom: 20px;
+            margin: 0 auto;
+            text-align: center;
+            white-space: nowrap; /* 🎯 強制不換行 */
+            display: inline-block;
+            min-width: 100%;
         }
         .s1 a {
             color: #FFFFFF;
             font-weight: bold;
-            margin: 0 4px;
+            margin: 0 6px;
+            display: inline-block;
         }
         .s1 a:hover {
             color: #0066CC;
@@ -113,11 +125,17 @@
             padding: 4px; border-radius: 3px;
         }
         
+        /* 🎯 修正：下面文章框框，寬度自適應且在手機畫面上完美置中 */
         .content-box {
             background-color: white;
-            width: 95%; max-width: 650px;
-            margin: 15px auto; border: 1px solid #999999;
-            border-radius: 4px; padding: 20px; text-align: left;
+            width: 90%; 
+            max-width: 650px;
+            margin: 15px auto; /* auto 控制左右水平置中 */
+            border: 1px solid #999999;
+            border-radius: 4px; 
+            padding: 20px; 
+            text-align: left;
+            box-sizing: border-box;
         }
         .sub-title { 
             color: #FF9900; 
@@ -146,17 +164,19 @@
 </head>
 <body>
 
-<p align="center" class="s1">
-    <font color="#FFFFFF" face="Arial, Helvetica, sans-serif">
-        <a href="../inside.htm">Inside</a> │ 
-        <a href="../about/about7.htm">About</a> │ 
-        <a href="../design/des.htm">Design</a> │ 
-        <a href="../comic/comic.htm">Comic</a> │ 
-        <a href="../game/game.htm">Game</a> │ 
-        <a href="../link/link.htm">Link</a> │ 
-        <a href="../guestbook.htm" target="_blank">Guestbook</a>
-    </font>
-</p>
+<div class="nav-scroll-wrapper">
+    <div class="s1">
+        <font color="#FFFFFF" face="Arial, Helvetica, sans-serif">
+            <a href="../inside.htm">Inside</a> │ 
+            <a href="../about/about7.htm">About</a> │ 
+            <a href="../design/des.htm">Design</a> │ 
+            <a href="../comic/comic.htm">Comic</a> │ 
+            <a href="../game/game.htm">Game</a> │ 
+            <a href="../link/link.htm">Link</a> │ 
+            <a href="../guestbook.htm" target="_blank">Guestbook</a>
+        </font>
+    </div>
+</div>
 
 <div class="responsive-container">
     <center>
@@ -367,21 +387,4 @@ function loadDiaryFile() {
                     if (dayCell) {
                         const starContainer = dayCell.querySelector('.star-container');
                         if (starContainer) {
-                            starContainer.innerHTML = `<br><a class="cal-star-link" href="#post-${day}" title="點擊閱讀這篇日記">★</a>`;
-                        }
-                    }
-                }
-            }
-        })
-        .catch(error => {
-            contentDiv.innerHTML = `<span style="color:red;">${error.message}</span>`;
-        });
-}
-
-window.onload = function() {
-    checkAvailableMonths(true);
-};
-</script>
-
-</body>
-</html>
+                            starContainer.innerHTML = `<br><a class="cal-star-link" href
