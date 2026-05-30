@@ -42,50 +42,80 @@
 
 </head>
 
+<style type="text/css">
+</style>
+
 <style>
+
   .orientation-warning {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); 
+    z-index: 99999;
+    color: #FFFFFF;
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
   }
 
-  @media screen and (orientation: portrait) {
-    .orientation-warning {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.90); 
-      z-index: 99999;
-      color: #FFFFFF;
-      font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+  .orientation-warning img {
+    max-width: 200px; 
+    height: auto;
+    margin-bottom: 20px;
+  }
 
-    .orientation-warning img {
-      max-width: 200px; 
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    .orientation-warning p {
-      font-size: 35px;
-      font-weight: bold;
-      line-height: 1.5;
-      text-align: center;
-      margin: 0;
-    }
+  .orientation-warning p {
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
   }
 </style>
 
-<div class="orientation-warning">
-  <img src="images/intro_mobile.gif" alt="Please rotate your device">
+<div id="fbRotationOverlay" class="orientation-warning">
+  <img src="../images/intro_mobile.gif" alt="Please rotate your device">
   <p>請使用橫式畫面，以獲得最佳瀏覽體驗。</p>
 </div>
+
+<script>
+function checkFBOrientation() {
+    var overlay = document.getElementById('fbRotationOverlay');
+    if (!overlay) return;
+
+
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    
+    var isPortrait = height > width;
+
+
+    if (isPortrait) {
+        overlay.style.display = 'flex';
+    } else {
+        overlay.style.display = 'none';
+    }
+}
+
+
+window.addEventListener('resize', checkFBOrientation);
+window.addEventListener('orientationchange', checkFBOrientation);
+window.addEventListener('load', checkFBOrientation);
+
+
+setInterval(checkFBOrientation, 300);
+
+
+checkFBOrientation();
+</script>
+
 
 <body bgcolor="#DBDBDB" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
