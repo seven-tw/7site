@@ -9,7 +9,7 @@
             background-color: #99CCFF;
             color: #666666;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 13px; /* 全域字體微調大 */
+            font-size: 13px;
             margin: 0;
             padding: 20px 10px;
         }
@@ -25,7 +25,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         
-        /* 月曆外殼與表格 */
         .calendar-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -52,12 +51,10 @@
             font-size: 12px;
         }
         
-        /* 星期顏色 */
         .w-sun { color: #CC3366; font-weight: bold; }
         .w-sat { color: #6666FF; font-weight: bold; }
         .w-nor { color: #999999; }
         
-        /* 月曆格子內的樣式 */
         .cal-day-num {
             display: block;
             margin-bottom: 2px;
@@ -75,12 +72,17 @@
             transform: scale(1.3);
         }
         
-        /* 下拉選單 */
         .s {
             font-size: 13px; color: #666666;
             border: 1px solid #999999; background-color: #ECF5FD;
             padding: 4px; border-radius: 3px;
         }
+        /* 被禁用的月份樣式 */
+        .s option:disabled {
+            color: #BBBBBB;
+            background-color: #EEEEEE;
+        }
+
         .btn-submit {
             font-size: 13px; color: #666666;
             background-color: #DFEFFF; border: 1px solid #999999;
@@ -93,7 +95,6 @@
             color: white;
         }
         
-        /* 日記顯示區（字體放大） */
         .content-box {
             background-color: white;
             width: 95%; max-width: 650px;
@@ -102,7 +103,7 @@
         }
         .sub-title { 
             color: #FF9900; 
-            font-size: 18px; /* 🎯 標題放大 */
+            font-size: 18px; 
             font-weight: bold;
         }
         .diary-date-title {
@@ -111,22 +112,17 @@
         }
         hr { border: 0; height: 1px; background-color: powderblue; margin: 12px 0; }
         
-        /* 🎯 日誌內文字體大小調大 */
         .diary-item {
             border-bottom: 1px dashed #CCCCCC;
             padding: 15px 0;
-            scroll-margin-top: 20px; /* 錨點平滑滾動時的上方留白 */
+            scroll-margin-top: 20px;
         }
         .diary-item:last-child { border-bottom: none; }
         .diary-body {
-            font-size: 15px; /* 🎯 內文放大至 15px */
+            font-size: 15px; 
             line-height: 1.7; 
             color: #333333;
             margin-top: 8px;
-        }
-        .diary-star {
-            color: #FF9900;
-            font-size: 14px;
         }
     </style>
 </head>
@@ -146,12 +142,12 @@
         <table border="0" align="center">
             <tr>
                 <td>
-                    <select id="yearSelect" class="s" onchange="generateCalendarSkeleton()">
+                    <select id="yearSelect" class="s" onchange="checkAvailableMonths()">
                         <option value="2000">2000 年</option>
                         <option value="2001">2001 年</option>
                         <option value="2002" selected>2002 年</option>
                     </select>
-                    <select id="monthSelect" class="s" onchange="generateCalendarSkeleton()">
+                    <select id="monthSelect" class="s">
                         <option value="01">1 月</option>
                         <option value="02">2 月</option>
                         <option value="03">3 月</option>
@@ -174,7 +170,7 @@
         <div class="content-box">
             <center><b id="display-date" style="font-size: 16px;">正在載入日記資料...</b></center>
             <hr>
-            <div id="diary-content">
+            <div id="diary-content" style="min-height: 100px;">
                 請點擊上方按鈕讀取 `.txt` 檔案。
             </div>
         </div>
@@ -183,18 +179,59 @@
 </div>
 
 <script>
-// 全局變數，用來紀錄當月哪些天有文章
 let activeDays = {};
 
-// 1. 初始化與生成完整月份空月曆
+// 🎯 修正：動態檢測當前年份有哪些月份的 TXT 檔存在，並隱藏沒有文章的月份
+function checkAvailableMonths() {
+    const year = document.getElementById('yearSelect').value;
+    const monthSelect = document.getElementById('monthSelect');
+    const options = monthSelect.options;
+
+    // 巡迴 1~12 月，探測檔案是否存在
+    for (let i = 0; i < options.length; i++) {
+        const m = options[i].value;
+        const fileUrl = `${year}${m}.txt`;
+
+        // 使用 HEAD 請求快速偵測檔案，不占用過多流量
+        fetch(fileUrl, { method: 'HEAD' })
+            .then(res => {
+                if (res.ok) {
+                    options[i].disabled = false;
+                    options[i].text = `${parseInt(m)} 月 (有文章)`;
+                } else {
+                    options[i].disabled = true;
+                    options[i].text = `${parseInt(m)} 月 (無文章)`;
+                    // 如果目前選中的月份剛好無文章，自動跳到第一個可選的月份
+                    if (monthSelect.value === m) {
+                        autoSelectFirstValid();
+                    }
+                }
+            })
+            .catch(() => {
+                options[i].disabled = true;
+                options[i].text = `${parseInt(m)} 月 (無文章)`;
+            });
+    }
+}
+
+function autoSelectFirstValid() {
+    const monthSelect = document.getElementById('monthSelect');
+    for (let option of monthSelect.options) {
+        if (!option.disabled) {
+            monthSelect.value = option.value;
+            break;
+        }
+    }
+}
+
+// 🎯 修正：精準計算週數，移除月曆底部多出來的空白行
 function generateCalendarSkeleton() {
     const year = parseInt(document.getElementById('yearSelect').value);
     const month = parseInt(document.getElementById('monthSelect').value);
     
     const table = document.getElementById('calendar-table');
-    table.innerHTML = ""; // 清空舊表格
+    table.innerHTML = ""; 
 
-    // 建立表頭
     let html = `<tr><th colspan="7">${year}年 ${month}月</th></tr>`;
     html += `
         <tr>
@@ -203,13 +240,15 @@ function generateCalendarSkeleton() {
         </tr>
     `;
 
-    // 計算當月第一天是星期幾，以及當月總天數
     const firstDayIndex = new Date(year, month - 1, 1).getDay();
     const totalDays = new Date(year, month, 0).getDate();
 
+    // 🎯 修正核心：動態計算這個月到底需要 4 行、5 行還是 6 行
+    const totalCellsNeeded = firstDayIndex + totalDays;
+    const rowsNeeded = Math.ceil(totalCellsNeeded / 7);
+
     let dayCounter = 1;
-    // 固定產生 6 週（42格）以維持老式 cgi 的精準排版
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < rowsNeeded; i++) {
         html += "<tr>";
         for (let j = 0; j < 7; j++) {
             let cellClass = "w-nor";
@@ -218,7 +257,6 @@ function generateCalendarSkeleton() {
 
             const cellIndex = i * 7 + j;
             if (cellIndex >= firstDayIndex && dayCounter <= totalDays) {
-                // 給每個日期的格子一個獨一無二的 ID，方便後面塞入星星
                 html += `<td class="${cellClass}" id="cal-day-${dayCounter}">
                             <span class="cal-day-num">${dayCounter}</span>
                             <span class="star-container"></span>
@@ -229,16 +267,12 @@ function generateCalendarSkeleton() {
             }
         }
         html += "</tr>";
-        if (dayCounter > totalDays && i >= 4) {
-            // 如果日期已經跑完，且已經滿5行，第6行若全為空則可省略，但為了嚴謹通常產滿 42 格
-        }
     }
     table.innerHTML = html;
 }
 
-// 2. 讀取 TXT 檔案並在月曆上打星號、生成文章
 function loadDiaryFile() {
-    generateCalendarSkeleton(); // 每次讀取前，先重組乾淨的月曆
+    generateCalendarSkeleton(); 
     
     const year = document.getElementById('yearSelect').value;
     const month = document.getElementById('monthSelect').value;
@@ -261,7 +295,7 @@ function loadDiaryFile() {
             
             const lines = text.split('\n');
             let htmlOutput = "";
-            activeDays = {}; // 重置有紀錄的天數
+            activeDays = {}; 
 
             lines.forEach(line => {
                 if(line.trim() === "") return;
@@ -281,10 +315,8 @@ function loadDiaryFile() {
                         return match;
                     });
 
-                    // 標註這一天有日記
                     activeDays[day] = true;
 
-                    // 生成文章區塊，並幫外層 div 加上 id (例如 id="post-13") 方便月曆錨點跳轉
                     htmlOutput += `
                         <div class="diary-item" id="post-${day}">
                             <span class="sub-title">${subject}</span> 
@@ -299,7 +331,6 @@ function loadDiaryFile() {
                 contentDiv.innerHTML = "該月份檔案中沒有找到有效的日記資料。";
             } else {
                 contentDiv.innerHTML = htmlOutput;
-                // 🎯 核心功能：動態把星星 ★ 補進對應的月曆格子裡，並加上點擊跳轉連結
                 for (let day in activeDays) {
                     const dayCell = document.getElementById(`cal-day-${day}`);
                     if (dayCell) {
@@ -316,8 +347,9 @@ function loadDiaryFile() {
         });
 }
 
-// 網頁首次載入
+// 首次載入先執行月份探測與讀取
 window.onload = function() {
+    checkAvailableMonths();
     loadDiaryFile();
 };
 </script>
