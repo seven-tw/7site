@@ -2,7 +2,7 @@
 <head>
 <title>=== 7號試作机 ===</title>
 <meta charset="UTF-8">
-
+<meta name="viewport" id="customViewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="經典重現！源自2000年台灣知名百大站長之一，網站以視覺創作結合FLASH應用，榮獲Yahoo!奇摩2002年度好站。">
 <meta name="keywords" content="7號試作机, 7號試作機, 7site, 網頁設計, 個人網站, 數位創作, 視覺設計, Flash, 互動遊戲">
 <meta name="robots" content="index, follow">
@@ -14,9 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
-
 <style type="text/css">
-
   .pixel-counter {
     background-color: transparent; 
     color: #80D0FF;               
@@ -30,13 +28,11 @@
 </style>
 <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6LN8N72EP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-V6LN8N72EP');
 </script>
 
@@ -45,7 +41,7 @@
 <style>
     @media (max-width: 768px) {
         .notice-p {
-            font-size: 18px !important;
+            font-size: 22px !important;
             line-height: 1.6;
         }
         .notice-ul li {
@@ -57,11 +53,10 @@
 </style>
 
 <style>
-
   .orientation-warning {
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: fixed;
     top: 0;
@@ -72,18 +67,19 @@
     z-index: 99999;
     color: #FFFFFF;
     font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
-    padding: 20px;
+    padding: 30px 20px;
     box-sizing: border-box;
+    overflow-y: auto;
   }
 
   .orientation-warning img {
-    max-width: 200px; 
+    max-width: 160px;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .orientation-warning p {
-    font-size: 35px;
+    font-size: 22px;
     font-weight: bold;
     line-height: 1.5;
     text-align: center;
@@ -92,74 +88,60 @@
 </style>
 
 <div id="fbRotationOverlay" class="orientation-warning">
-  <img src="../images/intro_mobile.gif" alt="Please rotate your device">
-<p class="notice-p" style="font-size: 20px !important; line-height: 1.6; margin-bottom: 15px;">
-    <strong>【溫馨提示】</strong><br>
-    您即將進入2000年沒有智慧手機裝置的年代
-</p>
-
-<ul class="notice-ul" style="padding-left: 20px;">
-    <li style="font-size: 18px !important; line-height: 1.6; margin-bottom: 10px;">
-        <strong>為體驗最佳瀏覽效果：</strong>請將手機轉為<strong>橫式畫面</strong>。
-    </li>
-    <li style="font-size: 16px !important; line-height: 1.6;">
-        <strong>若您使用 iPhone 或 FB 瀏覽器無法旋轉：</strong>請點擊畫面右下角（或右上角）的<strong>『...』</strong>，選擇<strong>『使用外部瀏覽器開啟』</strong>。
-    </li>
-</ul>
-
-<br>
-<p class="notice-p"><strong>[Friendly Reminder]</strong><br>
-You are about to step back into the year 2000—an era before smartphones!</p>
-
-<ul class="notice-ul">
-    <li><strong>For the best experience:</strong> Please rotate your device to landscape mode.</li>
-    <li><strong>iPhone or Facebook Browser Users:</strong> If your screen won't rotate, please tap the "..." icon (in the top/bottom right corner) and select "Open in External Browser".</li>
-</ul>
-<br>
-<p class="notice-p"><strong>【お役立ちヒント】</strong><br>
-スマホが存在しなかった2000年代の世界へようこそ！</p>
-
-<ul class="notice-ul">
-    <li><strong>最適な表示で楽しむために：</strong>画面を<strong>横向き</strong>にしてご覧ください。</li>
-    <li><strong>iPhoneやFacebookブラウザをご利用の方へ：</strong>画面が回転しない場合は、画面の右下（または右上）にある<strong>「...」</strong>をタップし、<strong>「外部ブラウザで開く」</strong>を選択してください。</li>
-</ul>
-
+  <img src="../images/intro_mobile.gif" alt="Please rotate your device"><br>
+  
+  <p class="notice-p"><strong>【溫馨提示】</strong><br>您即將進入2000年沒有智慧手機裝置的年代</p>
+  <ul class="notice-ul">
+      <li><strong>為體驗最佳瀏覽效果：</strong>請將手機轉為<strong>橫式畫面</strong>。</li>
+      <li><strong>若您使用 iPhone 或 FB 瀏覽器無法旋轉：</strong>請點擊畫面右下角（或右上角）的<strong>『...』</strong>，選擇<strong>『使用外部瀏覽器開啟』</strong>。</li>
+  </ul>
+  
+  <br>
+  <p class="notice-p"><strong>[Friendly Reminder]</strong><br>You are about to step back into the year 2000—an era before smartphones!</p>
+  <ul class="notice-ul">
+      <li><strong>For the best experience:</strong> Please rotate your device to landscape mode.</li>
+      <li><strong>iPhone or Facebook Browser Users:</strong> If your screen won't rotate, please tap the "..." icon (in the top/bottom right corner) and select "Open in External Browser".</li>
+  </ul>
+  
+  <br>
+  <p class="notice-p"><strong>【お役立ちヒント】</strong><br>スマホが存在しなかった2000年代の世界へようこそ！</p>
+  <ul class="notice-ul">
+      <li><strong>最適な表示で楽しむために：</strong>画面を<strong>横向き</strong>にしてご覧ください。</li>
+      <li><strong>iPhoneやFacebookブラウザをご利用の方へ：</strong>画面が回転しない場合は、画面の右下（または右上）にある<strong>「...」</strong>をタップし、<strong>「外部ブラウザで開く」</strong>を選択してください。</li>
+  </ul>
 </div>
 
 <script>
 function checkFBOrientation() {
     var overlay = document.getElementById('fbRotationOverlay');
+    var vp = document.getElementById('customViewport');
     if (!overlay) return;
-
 
     var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     
     var isPortrait = height > width;
 
-
     if (isPortrait) {
+        vp.setAttribute('content', 'width=device-width, initial-scale=1.0');
         overlay.style.display = 'flex';
     } else {
+        vp.setAttribute('content', 'width=640, initial-scale=0.0, user-scalable=yes');
         overlay.style.display = 'none';
     }
 }
-
 
 window.addEventListener('resize', checkFBOrientation);
 window.addEventListener('orientationchange', checkFBOrientation);
 window.addEventListener('load', checkFBOrientation);
 
-
 setInterval(checkFBOrientation, 300);
-
-
 checkFBOrientation();
 </script>
 
-
 <body bgcolor="#DBDBDB" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
+<div align="center" style="width: 100%;">
 <table width="620" border="0" cellpadding="0" cellspacing="0" height="554">
   <tr>
     <td height="524">
@@ -194,9 +176,7 @@ checkFBOrientation();
 
             <script>
               (function() {
-             
                 const url = 'https://api.counterapi.dev/v1/18design_7site/visits/up';
-
                 fetch(url)
                   .then(res => {
                     if (!res.ok) throw new Error();
@@ -204,13 +184,11 @@ checkFBOrientation();
                   })
                   .then(data => {
                     let total = data.count || 15;
-               
                     document.getElementById('final_stable_counter').innerText = String(total).padStart(8, '0');
                   })
                   .catch(() => {
-                  
                     try {
-                      let localCount = localStorage.getItem('7site_shared_backup') || 00;
+                      let localCount = localStorage.getItem('7site_shared_backup') || 0;
                       localCount = parseInt(localCount) + 1;
                       localStorage.setItem('7site_shared_backup', localCount);
                       document.getElementById('final_stable_counter').innerText = String(localCount).padStart(8, '0');
@@ -223,7 +201,7 @@ checkFBOrientation();
           <td width="225"><img src="images/02_3dpack_06.gif" width="251" height="37"></td>
         </tr>
       </table>
-	  <table width="" border="0" cellspacing="0" cellpadding="3">
+      <table width="" border="0" cellspacing="0" cellpadding="3">
         <tr>
           <td align="center"><a href="http://tw.yahoo.com/picks/2002/" target="_blank"><img src="images/yahoo_awd1.gif" border="0" alt="Yahoo!奇摩2002年好站票選活動"></a></td>
         </tr>
@@ -231,6 +209,8 @@ checkFBOrientation();
     </td>
   </tr>
 </table>
+</div>
+
 <br>
 <map name="Map"> 
   <area shape="rect" coords="124,82,174,97" href="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" target="_blank" alt="Download Flash Player" title="Download Flash Player">
